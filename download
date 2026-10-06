@@ -1,0 +1,39 @@
+# Contexto de build enxuto: so entra o necessario para `flutter build web`.
+
+# Controle de versao / meta
+.git
+.github
+.gitignore
+.metadata
+devtools_options.yaml
+
+# Artefatos de build e cache
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Plataformas nao usadas no build web
+android/
+ios/
+linux/
+macos/
+windows/
+
+# Testes e IDE
+test/
+.idea/
+.vscode/
+*.iml
+
+# Os proprios arquivos de container e docs
+Dockerfile
+.dockerignore
+docker-compose.yml
+README.md
+
+# Sistema
+.DS_Store
+*.log

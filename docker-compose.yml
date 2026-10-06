@@ -1,0 +1,37 @@
+services:
+  # --------------------------------------------------------------------------
+  # web — PRODUCAO / APRESENTACAO
+  # Imagem minima: build web do Flutter servido por nginx. Roda e serve.
+  #   docker compose up --build web   ->  http://localhost:8080
+  # --------------------------------------------------------------------------
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dream-web:latest
+    container_name: dream-web
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # --------------------------------------------------------------------------
+  # dev — DESENVOLVIMENTO (Codespaces / dev container)
+  # Container interativo com o SDK do Flutter. Fica vivo com `sleep infinity`,
+  # entao voce abre o terminal quantas vezes quiser.
+  #   docker compose up -d dev
+  #   docker compose exec dev bash
+  # Dentro do container, servir com hot reload:
+  #   flutter run -d web-server --web-hostname 0.0.0.0 --web-port 5000
+  #   -> http://localhost:5000
+  # --------------------------------------------------------------------------
+  dev:
+    image: ghcr.io/cirruslabs/flutter:3.24.5
+    container_name: dream-dev
+    working_dir: /workspaces/dream
+    volumes:
+      - .:/workspaces/dream
+    command: sleep infinity
+    stdin_open: true   # -i : mantem o STDIN aberto
+    tty: true          # -t : aloca um TTY (terminal interativo)
+    ports:
+      - "5000:5000"    # flutter run -d web-server --web-port 5000
