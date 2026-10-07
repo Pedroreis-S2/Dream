@@ -25,8 +25,15 @@ services:
   #   -> http://localhost:5000
   # --------------------------------------------------------------------------
   dev:
-    image: ghcr.io/cirruslabs/flutter:3.24.5
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: dream-dev:latest
     container_name: dream-dev
+    # DNS publico explicito: evita "Failed host lookup" em redes/Docker com DNS quebrado
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     working_dir: /workspaces/dream
     volumes:
       - .:/workspaces/dream

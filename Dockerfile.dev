@@ -1,0 +1,11 @@
+# syntax=docker/dockerfile:1
+# Imagem de DESENVOLVIMENTO: SDK do Flutter + artefatos web ja baixados.
+# O `flutter precache --web` roda no BUILD da imagem, entao `flutter run -d web-server`
+# nao precisa baixar o Web SDK (storage.googleapis.com) toda vez que o container sobe.
+FROM ghcr.io/cirruslabs/flutter:3.24.5
+
+RUN flutter config --no-analytics \
+ && flutter precache --web
+
+WORKDIR /workspaces/dream
+CMD ["sleep", "infinity"]
